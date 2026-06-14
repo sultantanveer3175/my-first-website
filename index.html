@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/1-photoaidcom-cropped.png">
+    <title>SoleStyle | Shoe Store + Admin + Zoom Hover</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+
+      body {
+        background: #121212;
+        color: #f0f0f0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.2rem 5%;
+        background: rgba(18, 18, 18, 0.95);
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 1px solid #ff5e00;
+        flex-wrap: wrap;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #ff5e00, #ffaa33);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .nav-links a {
+        color: #f0f0f0;
+        text-decoration: none;
+        font-weight: 500;
+        transition: 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: #ff5e00;
+      }
+
+      .hero {
+        height: 90vh;
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+          url("https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?auto=format&fit=crop&w=1350&q=80");
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .hero-content h1 {
+        font-size: 4rem;
+        font-weight: 800;
+      }
+
+      .hero-content p {
+        margin: 1rem 0 2rem;
+      }
+
+      .btn {
+        background: #ff5e00;
+        color: white;
+        padding: 12px 32px;
+        border-radius: 40px;
+        font-weight: bold;
+        cursor: pointer;
+        display: inline-block;
+        border: none;
+        transition: 0.3s;
+      }
+
+      .btn:hover {
+        background: #ff7b2c;
+        transform: scale(1.02);
+      }
+
+      section {
+        padding: 5rem 5%;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .section-title:after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: #ff5e00;
+        margin: 0.8rem auto 0;
+        border-radius: 2px;
+      }
+
+      .shoes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 2rem;
+        max-width: 1300px;
+        margin: 0 auto;
+      }
+
+      .shoe-card {
+        background: #1e1e1e;
+        border-radius: 24px;
+        overflow: hidden;
+        text-align: center;
+        padding-bottom: 1.5rem;
+        transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1),
+          box-shadow 0.3s ease;
+        animation: fadeInUp 0.6s ease backwards;
+        will-change: transform;
+      }
+
+      /* Stronger zoom-out effect */
+      .shoe-card:hover {
+        box-shadow: 0 30px 40px rgba(0, 0, 0, 0.5);
+      }
+
+      .shoe-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        background: #2a2a2a;
+        transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      }
+
+      .shoe-card:hover img {
+        transform: scale(1.06);
+      }
+
+      .shoe-card h3 {
+        margin: 1rem 0 0.5rem;
+        transition: color 0.2s;
+      }
+
+      .shoe-card:hover h3 {
+        color: #ffaa33;
+      }
+
+      .price {
+        color: #ff5e00;
+        font-weight: bold;
+        font-size: 1.3rem;
+        margin: 0.5rem 0;
+      }
+
+      .add-to-cart {
+        background: #ff5e00;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-weight: 600;
+        margin-top: 0.5rem;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      .add-to-cart:hover {
+        background: #e04e00;
+        transform: scale(1.02);
+      }
+
+      .about {
+        background: #1a1a1a;
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+        border-radius: 32px;
+        padding: 3rem;
+      }
+
+      footer {
+        background: #0a0a0a;
+        padding: 3rem 5% 2rem;
+        margin-top: 2rem;
+      }
+
+      .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 2rem;
+      }
+
+      .footer-col h4 {
+        margin-bottom: 1rem;
+        color: #ff5e00;
+      }
+
+      .social-icons a {
+        color: white;
+        font-size: 1.6rem;
+        margin-right: 1rem;
+        transition: 0.3s;
+      }
+
+      .social-icons a:hover {
+        color: #ff5e00;
+      }
+
+      .newsletter input {
+        padding: 10px;
+        border-radius: 30px;
+        border: none;
+        width: 200px;
+        margin-right: 8px;
+      }
+
+      .newsletter button {
+        background: #ff5e00;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 30px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .admin-panel {
+        max-width: 900px;
+        margin: 2rem auto;
+        background: #1e1e1e;
+        padding: 2rem;
+        border-radius: 32px;
+        display: none;
+        border: 1px solid #ff5e00;
+      }
+
+      .admin-panel h2 {
+        color: #ff5e00;
+        margin-bottom: 1rem;
+      }
+
+      .admin-panel input,
+      .admin-panel textarea {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 30px;
+        border: none;
+        background: #2a2a2a;
+        color: white;
+      }
+
+      .admin-panel label {
+        display: block;
+        margin-top: 10px;
+        font-weight: 500;
+      }
+
+      .image-preview {
+        margin: 10px 0;
+        max-width: 120px;
+        max-height: 120px;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #2a2a2a;
+      }
+
+      .image-preview img {
+        width: 100%;
+        height: auto;
+        display: none;
+      }
+
+      .admin-btn {
+        background: #ff5e00;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 30px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      .product-list-admin {
+        margin-top: 2rem;
+      }
+
+      .admin-product-item {
+        background: #2a2a2a;
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .delete-btn {
+        background: #d32f2f;
+        border: none;
+        padding: 5px 12px;
+        border-radius: 20px;
+        color: white;
+        cursor: pointer;
+      }
+
+      .edit-btn {
+        background: #ffaa33;
+        border: none;
+        padding: 5px 12px;
+        border-radius: 20px;
+        color: black;
+        cursor: pointer;
+        margin-right: 5px;
+      }
+
+      .file-upload-area {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 768px) {
+        .hero-content h1 {
+          font-size: 2.2rem;
+        }
+        nav {
+          flex-direction: column;
+          gap: 1rem;
+        }
+        .footer-content {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+        .shoe-card:hover {
+          transform: scale(0.99);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">SOLE<span style="color:#ff5e00;">STYLE</span></div>
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#featured">Men</a>
+        <a href="#featured">Women</a>
+        <a href="#featured">Kids</a>
+        <a href="#">Sale</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Step Into Style</h1>
+        <p>Premium sneakers that elevate your every step</p>
+        <button class="btn" id="shopNowBtn">Shop Now</button>
+      </div>
+    </section>
+
+    <section id="featured">
+      <h2 class="section-title">Featured Collection</h2>
+      <div class="shoes-grid" id="shoesGrid"></div>
+    </section>
+
+    <section>
+      <div class="about">
+        <h2 class="section-title" style="margin-bottom: 1rem">
+          About SoleStyle
+        </h2>
+        <p>
+          We deliver confidence, comfort, and cutting-edge design. From classic
+          runners to limited-edition drops, SoleStyle is built for those who
+          walk their own path.
+        </p>
+      </div>
+    </section>
+
+    <footer id="contact">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+          <p><i class="fas fa-envelope"></i> hello@solestyle.com</p>
+        </div>
+        <div class="footer-col">
+          <h4>Follow Us</h4>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+          </div>
+        </div>
+        <div class="footer-col newsletter">
+          <h4>Newsletter</h4>
+          <input type="email" id="newsletterEmail" placeholder="Your email" />
+          <button id="subscribeBtn">Subscribe</button>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>
+          &copy; 2026 SoleStyle. Admin:
+          <a href="?admin=true" style="color:#ff5e00;">Open Admin Panel</a>
+        </p>
+      </div>
+    </footer>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel">
+      <h2>👟 Admin Panel - Add / Edit / Delete Shoes (Upload from PC)</h2>
+      <div>
+        <input
+          type="text"
+          id="productName"
+          placeholder="Shoe name (e.g. Air Zoom)"
+        />
+        <input type="text" id="productPrice" placeholder="Price (e.g. $129)" />
+
+        <label>📸 Upload image from your computer:</label>
+        <div class="file-upload-area">
+          <input
+            type="file"
+            id="imageUpload"
+            accept="image/jpeg, image/png, image/jpg"
+          />
+          <div class="image-preview" id="imagePreview">
+            <img id="previewImg" alt="Preview" />
+          </div>
+        </div>
+        <small style="display: block; margin: 5px 0"
+          >Or paste image URL below (optional if you upload file)</small
+        >
+        <input
+          type="text"
+          id="productImage"
+          placeholder="Image URL (optional if you upload a file)"
+        />
+
+        <button id="addProductBtn" class="admin-btn">➕ Add Product</button>
+      </div>
+      <div class="product-list-admin" id="adminProductList">
+        <h3>Existing Products</h3>
+        <div id="productListContainer"></div>
+      </div>
+      <p style="font-size: 0.8rem; margin-top: 1rem">
+        💡 Tip: Use "Upload from PC" to add your own shoe images. Hover over any
+        product card to see the professional zoom-out effect.
+      </p>
+    </div>
+
+    <script>
+      let products = [];
+
+      function loadProducts() {
+        const stored = localStorage.getItem("solestyle_products");
+        if (stored) {
+          products = JSON.parse(stored);
+        } else {
+          products = [
+            {
+              id: Date.now() + 1,
+              name: "AIR MAX PULSE",
+              price: "$129",
+              img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format",
+            },
+            {
+              id: Date.now() + 2,
+              name: "URBAN RUNNER",
+              price: "$99",
+              img: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=800&auto=format",
+            },
+            {
+              id: Date.now() + 3,
+              name: "STREET EDGE",
+              price: "$149",
+              img: "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=800&auto=format",
+            },
+            {
+              id: Date.now() + 4,
+              name: "FUSION PRO",
+              price: "$179",
+              img: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&auto=format",
+            },
+          ];
+          saveProducts();
+        }
+        renderStore();
+        if (document.getElementById("productListContainer")) renderAdminList();
+      }
+
+      function saveProducts() {
+        localStorage.setItem("solestyle_products", JSON.stringify(products));
+      }
+
+      function fileToBase64(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = (error) => reject(error);
+        });
+      }
+
+      async function addProduct(name, price, imgBase64OrUrl) {
+        if (!name || !price || !imgBase64OrUrl) {
+          alert(
+            "Please fill name, price, and provide an image (upload file or paste URL)"
+          );
+          return false;
+        }
+        const newId = Date.now();
+        products.push({
+          id: newId,
+          name: name.trim(),
+          price: price.trim(),
+          img: imgBase64OrUrl.trim(),
+        });
+        saveProducts();
+        renderStore();
+        renderAdminList();
+        return true;
+      }
+
+      function deleteProduct(id) {
+        products = products.filter((p) => p.id != id);
+        saveProducts();
+        renderStore();
+        renderAdminList();
+      }
+
+      function editProduct(id, newName, newPrice, newImg) {
+        const index = products.findIndex((p) => p.id == id);
+        if (index !== -1) {
+          products[index] = {
+            ...products[index],
+            name: newName,
+            price: newPrice,
+            img: newImg,
+          };
+          saveProducts();
+          renderStore();
+          renderAdminList();
+        }
+      }
+
+      function renderStore() {
+        const grid = document.getElementById("shoesGrid");
+        if (!grid) return;
+        if (products.length === 0) {
+          grid.innerHTML =
+            '<p style="text-align:center; grid-column:1/-1;">No products yet. Go to Admin Panel to add shoes!</p>';
+          return;
+        }
+        grid.innerHTML = products
+          .map(
+            (product) => `
+            <div class="shoe-card" data-id="${product.id}">
+                <img src="${product.img}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300?text=Image+Not+Found'">
+                <h3>${escapeHtml(product.name)}</h3>
+                <div class="price">${escapeHtml(product.price)}</div>
+                <button class="add-to-cart" data-id="${product.id}">Add to Cart 🛒</button>
+            </div>
+        `
+          )
+          .join("");
+
+        document.querySelectorAll(".add-to-cart").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            alert("✅ Added to cart!");
+          });
+        });
+      }
+
+      function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function (m) {
+          if (m === "&") return "&amp;";
+          if (m === "<") return "&lt;";
+          if (m === ">") return "&gt;";
+          return m;
+        });
+      }
+
+      function renderAdminList() {
+        const container = document.getElementById("productListContainer");
+        if (!container) return;
+        if (products.length === 0) {
+          container.innerHTML = "<p>No products. Add your first shoe above.</p>";
+          return;
+        }
+        container.innerHTML = products
+          .map(
+            (product) => `
+            <div class="admin-product-item" data-id="${product.id}">
+                <div style="flex:2"><strong>${escapeHtml(
+                  product.name
+                )}</strong> - ${escapeHtml(product.price)}</div>
+                <div style="flex:3; display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button class="edit-btn" data-id="${product.id}">✏️ Edit</button>
+                    <button class="delete-btn" data-id="${product.id}">🗑️ Delete</button>
+                </div>
+            </div>
+        `
+          )
+          .join("");
+
+        document.querySelectorAll(".delete-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const id = parseInt(btn.dataset.id);
+            deleteProduct(id);
+          });
+        });
+        document.querySelectorAll(".edit-btn").forEach((btn) => {
+          btn.addEventListener("click", async (e) => {
+            const id = parseInt(btn.dataset.id);
+            const product = products.find((p) => p.id === id);
+            if (product) {
+              let newName = prompt("Edit shoe name:", product.name);
+              if (newName) {
+                let newPrice = prompt("Edit price:", product.price);
+                let newImg = prompt("Edit image URL (or leave as is):", product.img);
+                if (newPrice && newImg) editProduct(id, newName, newPrice, newImg);
+              }
+            }
+          });
+        });
+      }
+
+      function checkAdminAccess() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const admin = urlParams.get("admin");
+        const adminDiv = document.getElementById("adminPanel");
+        if (admin === "true" && adminDiv) {
+          adminDiv.style.display = "block";
+          renderAdminList();
+        } else if (adminDiv) {
+          adminDiv.style.display = "none";
+        }
+      }
+
+      let currentBase64Image = null;
+      function setupImageUpload() {
+        const fileInput = document.getElementById("imageUpload");
+        const previewImg = document.getElementById("previewImg");
+        if (fileInput) {
+          fileInput.addEventListener("change", async (event) => {
+            const file = event.target.files[0];
+            if (
+              file &&
+              (file.type === "image/jpeg" ||
+                file.type === "image/png" ||
+                file.type === "image/jpg")
+            ) {
+              try {
+                const base64 = await fileToBase64(file);
+                currentBase64Image = base64;
+                previewImg.src = base64;
+                previewImg.style.display = "block";
+                document.getElementById("productImage").value = "";
+              } catch (err) {
+                alert("Error reading file");
+              }
+            } else {
+              alert("Please select a JPEG or PNG image");
+            }
+          });
+        }
+      }
+
+      function setupAddButton() {
+        const addBtn = document.getElementById("addProductBtn");
+        if (addBtn) {
+          addBtn.addEventListener("click", async () => {
+            const name = document.getElementById("productName").value;
+            const price = document.getElementById("productPrice").value;
+            const urlImage = document.getElementById("productImage").value;
+
+            let finalImage = null;
+            if (currentBase64Image) {
+              finalImage = currentBase64Image;
+            } else if (urlImage.trim() !== "") {
+              finalImage = urlImage.trim();
+            }
+
+            if (!name || !price || !finalImage) {
+              alert(
+                "Please provide name, price, and either upload an image file or paste a valid image URL."
+              );
+              return;
+            }
+
+            const success = await addProduct(name, price, finalImage);
+            if (success) {
+              document.getElementById("productName").value = "";
+              document.getElementById("productPrice").value = "";
+              document.getElementById("productImage").value = "";
+              document.getElementById("imageUpload").value = "";
+              currentBase64Image = null;
+              const previewImg = document.getElementById("previewImg");
+              previewImg.style.display = "none";
+              previewImg.src = "";
+            }
+          });
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        loadProducts();
+        checkAdminAccess();
+        setupImageUpload();
+        setupAddButton();
+
+        const shopBtn = document.getElementById("shopNowBtn");
+        if (shopBtn)
+          shopBtn.addEventListener("click", () =>
+            alert("✨ Welcome to SoleStyle! Start shopping.")
+          );
+
+        const subBtn = document.getElementById("subscribeBtn");
+        if (subBtn) {
+          subBtn.addEventListener("click", () => {
+            const email = document.getElementById("newsletterEmail").value;
+            if (email && email.includes("@"))
+              alert(`📬 Subscribed ${email}!`);
+            else alert("Valid email required");
+          });
+        }
+      });
+    </script>
+  </body>
+</html> 
